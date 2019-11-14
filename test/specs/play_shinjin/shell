@@ -1,0 +1,1 @@
+$nes "$roms/private/shinjin.nes" -p "$spec/rec" -q

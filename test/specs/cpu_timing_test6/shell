@@ -1,0 +1,1 @@
+$nes "$roms/cpu_timing_test6/cpu_timing_test.nes" -p "$spec/rec" -q

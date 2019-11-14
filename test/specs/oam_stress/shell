@@ -1,0 +1,1 @@
+$nes "$roms/oam_stress/oam_stress.nes" -p "$spec/rec" -q

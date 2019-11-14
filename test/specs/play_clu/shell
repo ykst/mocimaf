@@ -1,0 +1,1 @@
+$nes "$roms/private/clu.nes" -p "$spec/rec" -q

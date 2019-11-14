@@ -1,0 +1,216 @@
+commands:
+    -
+        desc: "quit the app"
+        name: quit
+        alias: q
+    -
+        desc: "issue soft reset"
+        name: reset
+        alias: r
+    -
+        desc: "set breakpoint on physical PRG address"
+        name: break
+        alias: b
+        args:
+            -
+                name: phys
+                type: int
+                default: $pc_phys
+    -
+        desc: "set interruption breakpoint"
+        name: break_int
+        alias: bi
+        args:
+            -
+                name: type
+                type:
+                    -
+                        name: nmi
+                        alias: n
+                    -
+                        name: irq
+                        alias: i
+                    -
+                        name: rst
+                        alias: r
+    -
+        desc: "set scanline breakpoint"
+        name: break_scanline
+        help:
+        alias: bs
+        args:
+            -
+                name: line
+                type: int
+            -
+                name: dot
+                type: int
+                default: 0
+    -
+        desc: "toggle sound channel"
+        name: toggle_sound
+        alias: ts
+        args:
+            -
+                name: target
+                type:
+                    -
+                        name: noise
+                        alias: n
+                    -
+                        name: pulse1
+                        alias: 1
+                    -
+                        name: pulse2
+                        alias: 2
+                    -
+                        name: dmc
+                        alias: d
+                    -
+                        name: triangle
+                        alias: t
+    -
+        desc: "set flag"
+        name: set
+        alias: s
+        args:
+            -
+                name: flag
+                type: &SET_FLAG_TYPE
+                    -
+                        name: event_trace
+                        alias: et
+                    -
+                        name: event_log
+                        alias: el
+    -
+        desc: "unset flag"
+        name: unset
+        alias: u
+        args:
+            -
+                name: flag
+                type: *SET_FLAG_TYPE
+
+    -
+        name: break_on_cursor
+        internal: true
+
+normal_mode:
+    -
+        desc: "focus current PC"
+        key: ' '
+        action: cursor_reset($pc, -$middle_y); cursor_set($middle_y)
+    -
+        desc: "set breakpoint on current cursor position"
+        key: b
+        action: break_on_cursor
+    -
+        desc: "quit the app"
+        key: q
+        action: quit
+    -
+        desc: "go to end"
+        key: G
+        action: cursor_reset(0, -$height); cursor_set($height - 1)
+    -
+        desc: "scroll page up"
+        key: <CTRL> + u
+        action: cursor_scroll(-$height / 2)
+    -
+        desc: "scroll page down"
+        key: <CTRL> + d
+        action: cursor_scroll($height / 2)
+    -
+        desc: "scroll down"
+        key: <CTRL> + e
+        action: cursor_scroll(1)
+    -
+        desc: "scroll up"
+        key: <CTRL> + y
+        action: cursor_scroll(-1)
+    -
+        desc: "cursor move down"
+        key: j, '\n'
+        action: cursor_offset(1)
+    -
+        desc: "cursor move up"
+        key: k, '-'
+        action: cursor_offset(-1)
+    -
+        desc: "memory scroll down"
+        key: <KEY_DOWN>
+        action: ram_offset(1)
+    -
+        desc: "memory scroll up"
+        key: <KEY_UP>
+        action: ram_offset(-1)
+    -
+        desc: "memory page down"
+        key: <KEY_NPAGE>
+        action: ram_offset(16)
+    -
+        desc: "memory page up"
+        key: <KEY_PPAGE>
+        action: ram_offset(-16)
+    -
+        desc: "memory reset offset"
+        key: <KEY_HOME>, <KEY_END>
+        action: ram_set(0)
+    -
+        desc: "step to next frame"
+        key: '+'
+        action: step_frame
+    -
+        desc: "step to next scanline"
+        key: '>'
+        action: step_scanline
+    -
+        desc: "step instruction"
+        key: .
+        action: step_instruction
+    -
+        desc: "pause execution"
+        key: p
+        action: pause
+    -
+        desc: "enter jump mode"
+        key: $, <NUM>, g
+        action: enter_jump_mode($input)
+    -
+        desc: "enter command mode"
+        key: ':'
+        action: enter_command_mode
+
+jump_mode:
+    -
+        desc : "offset jump"
+        key: '\n'
+        action: jump_offset
+
+    -
+        desc : "return to normal mode"
+        key: <ESC>
+        action: backto_normal_mode
+
+    -
+        desc : "commit jump command"
+        key: g
+        action: jump_commit
+
+    -
+        desc : "edit"
+        action: jump_edit($input)
+
+command_mode:
+    -
+        desc: "commit command"
+        key: '\n'
+        action: commit
+    -
+        desc: "back to normal mode"
+        key: <ESC>
+        action: backto_normal_mode
+    -
+        desc: "edit"
+        action: command_edit($input)

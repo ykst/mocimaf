@@ -1,0 +1,19 @@
+            switch (ch) {
+<% schemes.each do |scheme| -%>
+<%      unless scheme.is_default -%>
+            // <%= scheme.desc %>: <%= scheme.key %>
+<%          scheme.cases.each do |c| -%>
+            case <%= c %>: <% if scheme.cases.size > 1 -%>// Fallthrough<% end %>
+<%          end -%>
+<%      scheme.actions.each do |action| -%>
+                <%= action %>
+<%          end -%>
+<%      else -%>
+            default:
+<%      scheme.actions.each do |action| -%>
+                <%= action %>
+<%          end -%>
+<%      end -%>
+                break;
+<% end -%>
+            }

@@ -1,0 +1,1 @@
+$nes "$roms/cpu_interrupts_v2/cpu_interrupts.nes" -p "$spec/rec" -q

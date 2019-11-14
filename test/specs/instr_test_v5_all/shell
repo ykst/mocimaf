@@ -1,0 +1,1 @@
+$nes "$roms/instr_test-v5/all_instrs.nes" -q -p "$spec/rec"

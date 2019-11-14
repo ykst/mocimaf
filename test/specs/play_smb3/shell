@@ -1,0 +1,1 @@
+$nes "$roms/private/smb3.nes" -p "$spec/rec" -q

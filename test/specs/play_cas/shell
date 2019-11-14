@@ -1,0 +1,1 @@
+$nes "$roms/private/cas.nes" -p "$spec/rec" -q

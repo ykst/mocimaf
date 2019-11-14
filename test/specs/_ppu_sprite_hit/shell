@@ -1,0 +1,1 @@
+$nes "$roms/ppu_sprite_hit/ppu_sprite_hit.nes" -p "$spec/rec" -q

@@ -1,0 +1,1 @@
+$nes "$roms/ppu_read_buffer/test_ppu_read_buffer.nes" -p "$spec/rec" -q

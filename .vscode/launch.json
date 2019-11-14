@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/nes",
+            "args": [
+                //"${workspaceFolder}/test/roms/ppu_read_buffer/test_ppu_read_buffer.nes"
+                //"${workspaceFolder}/test/roms/nestest/nestest.nes"
+                //                "${workspaceFolder}/test/roms/private/smb.nes",
+                //"-q"
+                //"${workspaceFolder}/test/roms/cpu_interrupts_v2/rom_singles/1-cli_latency.nes",
+                //"-d",
+                //"/tmp/cli.s"
+                //"${workspaceFolder}/ppu_read_buffer/test_ppu_read_buffer.nes"
+                //"${workspaceFolder}/cpu_dummy_reads.nes"
+                //"${workspaceFolder}/blargg_ppu_tests_2005.09.15b/vbl_clear_time.nes"
+                //"${workspaceFolder}/cpu_interrupts_v2/rom_singles/2-nmi_and_brk.nes"
+                //"${workspaceFolder}/smb.nes"
+                //"${workspaceFolder}/instr_test-v5/all_instrs.nes"
+                //"${workspaceFolder}/mega2.nes"
+                //"${workspaceFolder}/dq2.nes"
+                // "${workspaceFolder}/test/roms/private/highway.nes",
+                // "-p",
+                // "/tmp/nesrec_WR3xkR"
+                "${workspaceFolder}/test/roms/private/smb.nes",
+                "-q",
+                "-f",
+                "10",
+                "-a"
+                //"${workspaceFolder}/test/specs/nestest_gui/rec",
+                //"-q"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb"
+        }
+    ]
+}

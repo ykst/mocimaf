@@ -1,0 +1,226 @@
+events:
+    -
+        domain: core
+        includes:
+            - core.h
+        actions:
+            -
+                desc: "called after cold boot, before running main loop"
+                name: start
+                args:
+                    - { name: core, type: core_ref }
+            -
+                desc: "called on pause"
+                name: pause
+                logging: true
+                args:
+                    - { name: core, type: core_ref }
+            -
+                desc: "called on resume from paused state"
+                name: resume
+                logging: true
+                args:
+                    - { name: core, type: core_ref }
+            -
+                desc: "process events while pausing"
+                name: poll_in_pause
+                args:
+                    - { name: core, type: core_ref }
+            -
+                desc: "called on quit"
+                name: quit
+                logging: true
+                args:
+                    - { name: core, type: core_ref }
+            -
+                desc: "called on core_destroy (handler is automatically generated)"
+                name: destroy
+
+    -
+        domain: bus
+        includes:
+            - bus.h
+            - interrupts.h
+
+        actions:
+            -
+                desc: "called on interrupt line is asseted"
+                name: int_asserted
+                args:
+                    -
+                        name: target
+                        type: interruption_type_t
+
+            -
+                desc: "called on interrupt line is acknowledged"
+                name: int_acked
+                args:
+                    -
+                        name: target
+                        type: interruption_type_t
+
+            -
+                desc: "called on OAMDMA is started"
+                name: oamdma
+                args:
+                    -
+                        name: addr
+                        type: uint16_t
+
+            -
+                desc: "called on DMCDMA is started"
+                name: dmcdma
+                args:
+                    -
+                        name: addr
+                        type: uint16_t
+
+
+    -
+        domain: ppu
+        includes:
+            - ppu.h
+        actions:
+            -
+                desc: "provides packed pixels of a processed scanline, called on right after entering hblank"
+                name: scanline
+                args:
+                    - { name: ppu,  type: ppu_ref }
+                    - { name: line, type: int }
+                    - { name: dots, type: const uint16_t * }
+
+            -
+                desc: "called on entering vblank, regardless of rendering was enabled or not"
+                name: frame
+                args:
+                    - { name: ppu, type: ppu_ref }
+                    - { name: frames, type: uint64_t }
+            -
+                desc: "called on sprite 0 hit"
+                name: sprite0_hit
+                args:
+                    - { name: ppu, type: ppu_ref }
+
+            -
+                desc: "called on set vblank flag"
+                name: vblank
+                args:
+                    - { name: ppu, type: ppu_ref }
+            -
+                desc: "called on register read/write"
+                name: reg
+                args:
+                    - { name: ppu, type: ppu_ref }
+                    - { name: is_read, type: bool }
+                    - { name: value, type: uint8_t }
+                    -
+                        name: target
+                        type: ppu_reg_addr_t
+
+    -
+        domain: cpu
+        includes:
+            - cpu.h
+        actions:
+            -
+                desc: "called before decoding an instruction after processed interruption"
+                name: decode
+                logging: true
+                args:
+                    - { name: cpu, type: cpu_ref }
+                    - { name: pc, type: uint16_t }
+
+            -
+                desc: "called on cpu_read"
+                name: read
+                logging: true
+                args:
+                    - { name: cpu, type: cpu_ref }
+                    - { name: addr, type: uint16_t }
+                    - { name: size, type: size_t }
+
+            -
+                desc: "called on cpu_write"
+                name: write
+                logging: true
+                args:
+                    - { name: cpu, type: cpu_ref }
+                    - { name: addr, type: uint16_t }
+                    - { name: length, type: size_t }
+
+            -
+                desc: "called on decoded an instruction"
+                name: step
+                args:
+                    - { name: cpu, type: cpu_ref }
+
+            -
+                desc: "called on handled an interruption"
+                name: interrupt
+                args:
+                    - { name: cpu, type: cpu_ref }
+                    - { name: acks, type: interruption_type_t }
+
+    -
+        domain: apu
+        includes:
+            - apu.h
+        actions:
+            -
+                desc: "called on generated a sample (pulse and triangle-noise-dmc)"
+                name: sample
+                args:
+                    - { name: apu, type: apu_ref }
+                    - { name: pulse, type: uint8_t }
+                    - { name: tnd, type: uint8_t }
+            -
+                desc: "emits sum of the level of every 30 samples in floating point (0~30)"
+                name: level30
+                args:
+                    - { name: apu, type: apu_ref }
+                    - { name: level, type: float }
+
+    -
+        domain: input
+        includes:
+            - joypad.h
+        actions:
+            -
+                desc: "controller status playback for input injection. should be emitted on entering vblank."
+                name: set_controls
+                args:
+                    - { name: system, type: uint8_t }
+                    - { name: joypad1, type: joypad_reg_t }
+                    - { name: joypad2, type: joypad_reg_t }
+
+            -
+                desc: "pressed button"
+                name: control_joypad
+                args:
+                    -
+                        name: idx
+                        type:
+                            - player1
+                            - player2
+
+                    - { name: is_on, type: bool }
+                    -
+                        name: button
+                        type:
+                            - a
+                            - b
+                            - start
+                            - select
+                            - right
+                            - up
+                            - left
+                            - down
+    -
+        domain: logger
+        actions:
+            -
+                desc: "event trace"
+                name: event_trace
+                args:
+                    - { name: domain_id, type: int }
+                    - { name: event_id, type: int }

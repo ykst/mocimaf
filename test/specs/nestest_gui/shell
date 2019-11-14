@@ -1,0 +1,1 @@
+$nes "$roms/nestest/nestest.nes" -q -p "$spec/rec"

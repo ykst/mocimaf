@@ -1,0 +1,1 @@
+$nes "$roms/private/ice.nes" -p "$spec/rec" -q

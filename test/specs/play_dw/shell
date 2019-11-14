@@ -1,0 +1,1 @@
+$nes "$roms/private/dw.nes" -p "$spec/rec" -q

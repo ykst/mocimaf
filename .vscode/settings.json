@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "*.hs": "haskell",
+        "utils.h": "c",
+        "cpu.h": "c",
+        "ppu.h": "c",
+        "cpu_mem.h": "c",
+        "joypad.h": "c",
+        "sdl_events.h": "c",
+        "playlog.h": "c",
+        "bus_internal.h": "c",
+        "debugger.h": "c",
+        "mapper.h": "c",
+        "interrupts.h": "c",
+        "bus.h": "c",
+        "disas_driver_impl.h": "c",
+        "inspector.h": "c",
+        "auto_pause_driver_impl.h": "c"
+    }
+}

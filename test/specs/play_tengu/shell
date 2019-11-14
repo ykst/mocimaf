@@ -1,0 +1,1 @@
+$nes "$roms/private/tengu.nes" -p "$spec/rec" -q

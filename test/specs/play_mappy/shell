@@ -1,0 +1,1 @@
+$nes "$roms/private/mappy.nes" -p "$spec/rec" -q

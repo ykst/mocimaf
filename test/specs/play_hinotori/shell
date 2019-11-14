@@ -1,0 +1,1 @@
+$nes "$roms/private/hinotori.nes" -p "$spec/rec" -q

@@ -1,0 +1,1 @@
+$nes "$roms/helloworld/sample1.nes" -p "$spec/rec" -q

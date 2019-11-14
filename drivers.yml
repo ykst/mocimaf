@@ -1,0 +1,166 @@
+drivers:
+    -
+        name: tracer
+        includes:
+            - args.h
+        args:
+            - { name: args, type: const args_t * }
+        events:
+            -
+                domain: cpu
+                actions:
+                    - step
+            -
+                domain: apu
+                actions:
+                    - sample
+            -
+                domain: ppu
+                actions:
+                    - scanline
+            -
+                domain: core
+                actions:
+                    - pause
+                    - quit
+                    - start
+
+    -
+        name: auto_pause
+        includes:
+            - args.h
+        args:
+            - { name: args, type: const args_t * }
+        events:
+            -
+                domain: cpu
+                actions:
+                    - step
+            -
+                domain: ppu
+                actions:
+                    - frame
+            -
+                domain: core
+                actions:
+                    - pause
+                    - start
+
+    -
+        name: playback
+        args:
+            - { name: record_in, type: const char * }
+        events:
+            -
+                domain: ppu
+                actions:
+                    - frame
+            -
+                domain: core
+                actions:
+                    - start
+
+    -
+        name: recorder
+        args:
+            - { name: record_out, type: const char * }
+        events:
+            -
+                domain: ppu
+                actions:
+                    - frame
+            -
+                domain: core
+                actions:
+                    - start
+
+    -
+        name: sdl
+        includes:
+            - args.h
+        args:
+            - { name: args, type: args_t * }
+        events:
+            -
+                domain: ppu
+                actions:
+                    - frame
+                    - scanline
+            -
+                domain: core
+                actions:
+                    - start
+                    - poll_in_pause
+                    - pause
+                    - resume
+            -
+                domain: apu
+                actions:
+                    - level30
+
+    -
+        name: analyzer
+        events:
+            -
+                domain: cpu
+                actions:
+                    - decode
+                    - step
+                    - read
+                    - write
+                    - interrupt
+            -
+                domain: core
+                actions:
+                    - start
+                    - pause
+                    - resume
+                    - poll_in_pause
+            -
+                domain: ppu
+                actions:
+                    - frame
+                    - scanline
+
+    -
+        name: disas
+        args:
+            - { name: out_path, type: const char * }
+        events:
+            -
+                domain: cpu
+                actions:
+                    - decode
+                    - read
+            -
+                domain: core
+                actions:
+                    - start
+                    - quit
+
+    -
+        name: event_logger
+        events:
+            -
+                domain: bus
+                actions:
+                    - int_asserted
+                    - int_acked
+                    - oamdma
+                    - dmcdma
+            -
+                domain: cpu
+                actions:
+                    - decode
+                    - read
+                    - write
+            -
+                domain: ppu
+                actions:
+                    - sprite0_hit
+                    - vblank
+                    - reg
+            -
+                domain: logger
+                actions:
+                    - event_trace

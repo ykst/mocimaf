@@ -1,0 +1,1 @@
+$nes "$roms/cpu_reset/ram_after_reset.nes" -p "$spec/rec" -q

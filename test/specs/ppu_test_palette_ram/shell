@@ -1,0 +1,1 @@
+$nes "$roms/blargg_ppu_tests_2005.09.15b/palette_ram.nes" -p "$spec/rec" -q

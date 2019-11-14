@@ -1,0 +1,1 @@
+$nes "$roms/ppu_sprite_overflow/ppu_sprite_overflow.nes" -p "$spec/rec" -q

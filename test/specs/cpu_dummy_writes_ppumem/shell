@@ -1,0 +1,1 @@
+$nes "$roms/cpu_dummy_writes/cpu_dummy_writes_ppumem.nes" -p "$spec/rec" -q

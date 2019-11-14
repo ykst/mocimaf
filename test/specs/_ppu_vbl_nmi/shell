@@ -1,0 +1,1 @@
+$nes "$roms/ppu_vbl_nmi/ppu_vbl_nmi.nes" -p "$spec/rec" -q

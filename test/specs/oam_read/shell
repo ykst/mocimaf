@@ -1,0 +1,1 @@
+$nes "$roms/oam_read/oam_read.nes" -p "$spec/rec" -q

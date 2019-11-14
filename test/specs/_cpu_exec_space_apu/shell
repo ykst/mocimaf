@@ -1,0 +1,1 @@
+$nes "$roms/cpu_exec_space/test_cpu_exec_space_apu.nes" -p "$spec/rec" -q

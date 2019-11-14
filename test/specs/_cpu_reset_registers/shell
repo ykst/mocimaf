@@ -1,0 +1,1 @@
+$nes "$roms/cpu_reset/registers.nes" -p "$spec/rec" -q
